@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Model\Administrativo;
+
 use App\Model\CaoUsuario;
-use App\Model\PermissaoSistema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
@@ -56,9 +55,9 @@ class AdministrativoController extends Controller
                         ->whereBetween('cf.data_emissao',[$start,$end])
                         ->groupby('usu.co_usuario','mes')
                         ->get()
-                         ->map(function ($rel) {
-                     
-                            return [
+                         ->map(function ($rel) use($rela){
+                        
+                            return $rela->push([
                                     "mes"           => $rel->mes,
                                     "period"        => $rel->period,
                                     "no_usuario"    => $rel->no_usuario,
@@ -68,22 +67,60 @@ class AdministrativoController extends Controller
                                     "impuesto"      => $rel->total_imp_inc,
                                     "receita"       => $rel->receita,
                                     "comissao"      => $rel->comissao,
-                                    ];
+                                    ]);
                            
                         });
+                      //  $array = $rela->groupBy('co_usuario');
+                    //$array['items']         =[];
+                    /* $consultor[] =[];
+                    $array['items']         =[];
 
-                       
-                    $a['consultor'] =[];
-                    $array['consultor'] =[];
+                    foreach($relatorio as $key=>$rel){
 
-                    foreach($relatorio as $key=>$rela){
+                       // $consultor['consultor'][$key] = $rela['co_usuario'];
+                        $array['items'][$rel['co_usuario']][] = $rel;
 
+                        /* $rela->push([
+                                "consultor" => $rel['co_usuario'],
+                                "items"     => $rel
+                            ]); 
+                    } */
+                    //$array = $rela->groupBy('co_usuario');
+                    /* $consultores = [];
+                     for($i=0; $i <= count($array); $i++){
+                        //$array['items'][$key] = $rel['co_usuario']; 
+                        //$array[] = $rela->groupBy('co_usuario');
+                        //dd($i, count($array), $array);
+                        $consultores[$i] = $array[$i];
+                    }   */
+       // dd($array);
+                    
+        //dd($rela->groupBy('co_usuario'));
+        //$array[] = $rela->groupBy('co_usuario');
+       // dd($array);
+       $bandera = 0;
+       $arr_con = [];
+       $inc     = 0;
 
-                        $array['consultor'][$rela['co_usuario']][]= $rela;
-                    }
+        for($i=0; $i < $rela->count(); $i++){
+            //dd(  );
+            for($j=0; $j < count($rela[$i]); $j++){
+                dd($bandera != $rela[$i]['co_usuario'], $bandera, $rela[$i]['co_usuario']);
+                
+                if($bandera != $rela[$i]['co_usuario'] ){
+                    dd($bandera);
+                    $arr_con[$inc] = $rela[$i];
+                    $inc++;
+                    $bandera = $rela[$i]['co_usuario'];
+                }
+            }
+            
+            
+        }
+      
+        dd($bandera, $inc, $arr_con);
 
-        //return $array;
-        return response()->json($array);
+        return response()->json($rela);
     }
 
     public function getGraficoConsultores(Request $request)

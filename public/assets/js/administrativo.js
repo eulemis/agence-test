@@ -19,15 +19,44 @@ var agence = function () {
                 
                 var consultores = '';
                 //$('#tabla').empty();
-                console.log(data.length, data['consultor']['co_usuario']);
+                
+                var head    = "";
+                var footer  = "";
+                var bandera = 0;
+                var arr_con = [];
+                var inc = 0;
 
-                for(var j = 0; j < data['consultor'].length; j++) {
-                    console.log(j, data['consultor'][j])
-                }
                 for(var i = 0; i < data.length; i++) {
+                    
+                    if(bandera != data[i].co_usuario ){
+                        arr_con[inc] = data[i];
+                        inc++;
+                        bandera = data[i].co_usuario;
+                    }
+                    
+                }
+
+                
+                for(var k = 0; k < arr_con.length; k++) {
+
+                    console.log("Señor has que sea posible"+ arr_con[k], k, arr_con[k].length )
+                    
+                    for(var i = 0; i < arr_con[k].length; i++) {
+                        console.log("madrecita del cielo: "+ arr_con[k][i])
+                    }
+
+                }
+                
+
+                
+                /*  for(var i = 0; i < data.length; i++) {
+
+                    
+                 
                     var lucro = (data[i].receita -(data[i].custo_fixo + data[i].comissao))
                     
-                    consultores =   '<table class="table table-striped table-bordered table-hover order-column active" id="dtTable" width="100%" bgcolor="#efefef" >' +
+                    if(bandera != data[i].co_usuario ){
+                        head +=     '<table class="table table-striped table-bordered table-hover order-column active" id="dtTable" width="100%" bgcolor="#efefef" >' +
                                     '<thead>' +
                                     '<tr><td colspan="5">'+data[i].no_usuario+'</td></tr>' +
                                     '<tr>' +
@@ -36,21 +65,31 @@ var agence = function () {
                                     '<th>Custo Fixo</th>' +
                                     '<th>Comissao</th>' +
                                     '<th>Lucro</th>' +
-                                    '</tr>' +
-                                    '</thead>' +
-                                    '<tbody>' +
-                                    '<tr>' +
-                                    '<td>'+data[i].period+'</td>' +
-                                    '<td>'+parseFloat(data[i].receita).toFixed(2)+'</td>' +
-                                    '<td>'+parseFloat(data[i].custo_fixo).toFixed(2)+'</td>' +
-                                    '<td>'+parseFloat(data[i].comissao).toFixed(2)+'</td>' +
-                                    '<td>'+parseFloat(lucro).toFixed(2)+'</td>' +
-                                    '</tr>' +
-                                    '</tbody>' ;
-                    consultores +=  '</table>' ;
+                                    '</tr>';
+                        head +=     '</thead><tbody class="row-consultor">';
+                        bandera = data[i].co_usuario;
+                        
+
+                    }else{
+
+                        consultores =   '<tr>' +
+                                        '<td>'+data[i].period+'</td>' +
+                                        '<td>'+parseFloat(data[i].receita).toFixed(2)+'</td>' +
+                                        '<td>'+parseFloat(data[i].custo_fixo).toFixed(2)+'</td>' +
+                                        '<td>'+parseFloat(data[i].comissao).toFixed(2)+'</td>' +
+                                        '<td>'+parseFloat(lucro).toFixed(2)+'</td>' +
+                                        '</tr>' +
+                                        '</tbody>';
+                        consultores +=  '</table>';
+                    }
+                } */ //fin del for
+                
+                    
                    
-                    $('#tabla').append(consultores);
-                }
+                  //  $('.row-consultor').append( consultores ); 
+                   
+                
+                
             } //fin de success
         });
         
