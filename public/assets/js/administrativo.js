@@ -19,7 +19,7 @@ var agence = function () {
                 
                 var consultores = '';
                 //$('#tabla').empty();
-                console.log(data['consultor'].length, data['consultor']);
+                console.log(data.length, data['consultor']['co_usuario']);
 
                 for(var j = 0; j < data['consultor'].length; j++) {
                     console.log(j, data['consultor'][j])
