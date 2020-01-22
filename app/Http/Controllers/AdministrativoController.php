@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Model\Administrativo;
+
 use App\Model\CaoUsuario;
-use App\Model\PermissaoSistema;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
@@ -56,9 +55,9 @@ class AdministrativoController extends Controller
                         ->whereBetween('cf.data_emissao',[$start,$end])
                         ->groupby('usu.co_usuario','mes')
                         ->get()
-                         ->map(function ($rel) {
+                         ->map(function ($rel) use($rela){
                      
-                            return [
+                            return $rela->push([
                                     "mes"           => $rel->mes,
                                     "period"        => $rel->period,
                                     "no_usuario"    => $rel->no_usuario,
@@ -68,22 +67,37 @@ class AdministrativoController extends Controller
                                     "impuesto"      => $rel->total_imp_inc,
                                     "receita"       => $rel->receita,
                                     "comissao"      => $rel->comissao,
-                                    ];
+                                    ]);
                            
                         });
 
-                       
-                    $a['consultor'] =[];
-                    $array['consultor'] =[];
+                    //$array['items']         =[];
+                    /* $consultor[] =[];
+                    $array['items']         =[];
 
-                    foreach($relatorio as $key=>$rela){
+                    foreach($relatorio as $key=>$rel){
 
+                       // $consultor['consultor'][$key] = $rela['co_usuario'];
+                        $array['items'][$rel['co_usuario']][] = $rel;
 
-                        $array['consultor'][$rela['co_usuario']][]= $rela;
-                    }
-
-        //return $array;
-        return response()->json($array);
+                        /* $rela->push([
+                                "consultor" => $rel['co_usuario'],
+                                "items"     => $rel
+                            ]); 
+                    } */
+                    //$array = $rela->groupBy('co_usuario');
+                    /* $consultores = [];
+                     for($i=0; $i <= count($array); $i++){
+                        //$array['items'][$key] = $rel['co_usuario']; 
+                        //$array[] = $rela->groupBy('co_usuario');
+                        //dd($i, count($array), $array);
+                        $consultores[$i] = $array[$i];
+                    }   */
+       // dd($array);
+                    
+        //dd($rela->groupBy('co_usuario'));
+        //$array[] = $rela->groupBy('co_usuario');
+        return response()->json($rela);
     }
 
     public function getGraficoConsultores(Request $request)

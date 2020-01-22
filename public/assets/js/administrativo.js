@@ -19,11 +19,18 @@ var agence = function () {
                 
                 var consultores = '';
                 //$('#tabla').empty();
-                console.log(data['consultor'].length, data['consultor']);
+                console.log(data.length);
+               
 
-                for(var j = 0; j < data['consultor'].length; j++) {
-                    console.log(j, data['consultor'][j])
+                  data.forEach(myFunction);
+
+                function myFunction(i, val) {
+                    console.log("El indice es: "+ i.co_usuario + " y el valor es: "+ val )
                 }
+                
+                var head    = "";
+                var footer  = "";
+
                 for(var i = 0; i < data.length; i++) {
                     var lucro = (data[i].receita -(data[i].custo_fixo + data[i].comissao))
                     
