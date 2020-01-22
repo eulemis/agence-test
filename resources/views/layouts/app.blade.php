@@ -219,9 +219,7 @@
             <script src="{{ asset('assets/plugins/jquery-loading-overlay/dist/loadingoverlay.min.js') }}" type="text/javascript"></script>
             
             <script src="{{ asset('assets/plugins/highcharts.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('js/core.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('js/charts.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('js/animated.js') }}" type="text/javascript"></script>
+           
 
 
             <script type="text/javascript">

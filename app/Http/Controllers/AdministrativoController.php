@@ -44,6 +44,7 @@ class AdministrativoController extends Controller
         $relatorio = \DB::table('cao_fatura as cf')
                         ->select('usu.no_usuario','usu.co_usuario','cs.brut_salario as custo_fixo', 'cf.valor', 
                         'cf.total_imp_inc','cf.comissao_cn',
+                                DB::raw('MONTH(cf.data_emissao) as mes'),
                                 DB::raw('DATE_FORMAT(cf.data_emissao,"%Y-%m") as period'),
                                 DB::raw('SUM((cf.valor - ((cf.valor * cf.total_imp_inc)/100))) as receita'),
                                 DB::raw('SUM(((cf.valor -((cf.valor * cf.total_imp_inc)/100))) * cf.comissao_cn)/100 as comissao')
@@ -53,12 +54,12 @@ class AdministrativoController extends Controller
                         ->join('cao_salario as cs','co.co_usuario','=','cs.co_usuario')
                         ->whereIn('co.co_usuario',$users)
                         ->whereBetween('cf.data_emissao',[$start,$end])
-                        ->groupby('period','usu.co_usuario')
-                        ->orderBy('usu.co_usuario')
+                        ->groupby('usu.co_usuario','mes')
                         ->get()
                          ->map(function ($rel) {
                      
                             return [
+                                    "mes"           => $rel->mes,
                                     "period"        => $rel->period,
                                     "no_usuario"    => $rel->no_usuario,
                                     "co_usuario"    => $rel->co_usuario,
@@ -69,11 +70,20 @@ class AdministrativoController extends Controller
                                     "comissao"      => $rel->comissao,
                                     ];
                            
-                        })->sortBy('period');
-                          
-                        
-        return $relatorio;
-        //return response()->json($relatorio);
+                        });
+
+                       
+                    $a['consultor'] =[];
+                    $array['consultor'] =[];
+
+                    foreach($relatorio as $key=>$rela){
+
+
+                        $array['consultor'][$rela['co_usuario']][]= $rela;
+                    }
+
+        //return $array;
+        return response()->json($array);
     }
 
     public function getGraficoConsultores(Request $request)
@@ -101,18 +111,4 @@ class AdministrativoController extends Controller
                   
          return response()->json($relatorio);
     }
-
-    /* select 
-    `s`.`co_usuario` AS `co_usuario`,
-    date_format(`f`.`data_emissao`,'%Y-%m') AS `period`,
-    sum((`f`.`valor` - ((`f`.`valor` * `f`.`total_imp_inc`) / 100))) AS `recliq`,
-    ifnull((select `db_agence`.`cao_salario`.`brut_salario` 
-    from 
-    `db_agence`.
-    `cao_salario` 
-    where 
-    (`db_agence`.`cao_salario`.`co_usuario` = `s`.`co_usuario`)),0) AS `bruto`,
-    sum(((`f`.`valor` - ((`f`.`valor` * `f`.`total_imp_inc`) / 100)) * (`f`.`comissao_cn` / 100))) AS `comision` 
-    from `db_agence`.`cao_fatura` `f` join `db_agence`.`cao_os` `s` where (`f`.`co_os` = `s`.`co_os`) 
-    group by `s`.`co_usuario`,`period` */
 }

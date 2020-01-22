@@ -16,9 +16,14 @@ var agence = function () {
             url: $urlBase + "/getRelatorio",
             data: {consultores: arrayConsultores, start : start, end:end},
             success: function(data) {
-                var consultores = '';
-                $('#tabla').empty();
                 
+                var consultores = '';
+                //$('#tabla').empty();
+                console.log(data['consultor'].length, data['consultor']);
+
+                for(var j = 0; j < data['consultor'].length; j++) {
+                    console.log(j, data['consultor'][j])
+                }
                 for(var i = 0; i < data.length; i++) {
                     var lucro = (data[i].receita -(data[i].custo_fixo + data[i].comissao))
                     
@@ -35,7 +40,7 @@ var agence = function () {
                                     '</thead>' +
                                     '<tbody>' +
                                     '<tr>' +
-                                    '<td>2018-2019</td>' +
+                                    '<td>'+data[i].period+'</td>' +
                                     '<td>'+parseFloat(data[i].receita).toFixed(2)+'</td>' +
                                     '<td>'+parseFloat(data[i].custo_fixo).toFixed(2)+'</td>' +
                                     '<td>'+parseFloat(data[i].comissao).toFixed(2)+'</td>' +
@@ -48,9 +53,7 @@ var agence = function () {
                 }
             } //fin de success
         });
-        /* $('#consultores').on('change', function(){
-            $('#tabla').remove();
-        }); */
+        
  
         $('#dtTable').removeClass('hide');
         $('#grafica').addClass('hide');
