@@ -1,0 +1,25 @@
+#navbar__select-team-form {
+    margin-right: 10px;
+    margin-top: 5px;
+    float: right;
+}
+
+#navbar__select-team {
+    width: 150px;
+}
+.skin-blue .main-header .logo {
+    background-color: #ffffff;
+    color: #fff;
+    border-bottom: 0 solid transparent;
+    background-color: white;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #fff;
+}
+
+.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a {
+    color: #fff;
+    background: #1e282c;
+    border-left-color: #333;
+}
