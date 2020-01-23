@@ -62,36 +62,19 @@
     margin: 5px;
 }
 
-.th{
-    text-align: center;
-}
-/* .page-header.navbar .page-logo {
-    background: #e05f09;
-}
 
-.page-sidebar .page-sidebar-menu {
-    margin-bottom: 10px;
-    background-color: #004d99;
-}
 
-.page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a {
-    border-top: 1px solid #2054a9;
-    color: #fdfdfd;
-}
-
-.page-content-wrapper {
-    background-color: #004d99;
-}
-
-.page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover {
-    background-color: #004d99;
-}
-
-body {
-    background-color: #004d99;
-} */
 
 .logo_login{
     transform: translate(100px, 10px);
     padding-bottom: 20px;
 }
+
+table, th, td {
+    border: 1px solid #2b3b55;
+    border-collapse: collapse;
+  
+   }
+   #dtTable{
+       padding: 2%;
+   }

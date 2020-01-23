@@ -27,7 +27,7 @@ Route::get('/agence', 'AgenceController@index')->name('agence');
 Route::get('/administrativo', 'AdministrativoController@index')->name('administrativo');
 Route::get('/getGraficoConsultores/', 'AdministrativoController@getGraficoConsultores')->name('getGraficoConsultores');
 Route::get('/getConsultores/', 'AdministrativoController@getConsultores')->name('getConsultores');
-Route::get('/getRelatorio/', 'AdministrativoController@getRelatorio')->name('getRelatorio');
+Route::post('/getRelatorio/', 'AdministrativoController@getRelatorio')->name('getRelatorio');
 
 Route::get('/comercial', 'ComercialController@index')->name('comercial');
 Route::get('/financeiro', 'FinanceiroController@index')->name('financeiro');

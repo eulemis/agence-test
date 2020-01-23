@@ -11,7 +11,8 @@ class AdministrativoController extends Controller
 {
     public function index()
     {
-        return view('administrativo.index');
+        $arrayConsultores = [];
+        return view('administrativo.index',compact('arrayConsultores'));
     }
 
     public function getConsultores(){
@@ -33,6 +34,7 @@ class AdministrativoController extends Controller
 
     public function getRelatorio(Request $request)
     {
+    
         $users          =  $request->input('consultores');
         $start          =  $request->input('start');
         $end            =  $request->input('end');
@@ -56,7 +58,7 @@ class AdministrativoController extends Controller
                         ->groupby('usu.co_usuario','mes')
                         ->get()
                          ->map(function ($rel) use($rela){
-                        
+                       
                             return $rela->push([
                                     "mes"           => $rel->mes,
                                     "period"        => $rel->period,
@@ -67,60 +69,28 @@ class AdministrativoController extends Controller
                                     "impuesto"      => $rel->total_imp_inc,
                                     "receita"       => $rel->receita,
                                     "comissao"      => $rel->comissao,
+                                
                                     ]);
                            
                         });
-                      //  $array = $rela->groupBy('co_usuario');
-                    //$array['items']         =[];
-                    /* $consultor[] =[];
-                    $array['items']         =[];
-
-                    foreach($relatorio as $key=>$rel){
-
-                       // $consultor['consultor'][$key] = $rela['co_usuario'];
-                        $array['items'][$rel['co_usuario']][] = $rel;
-
-                        /* $rela->push([
-                                "consultor" => $rel['co_usuario'],
-                                "items"     => $rel
-                            ]); 
-                    } */
-                    //$array = $rela->groupBy('co_usuario');
-                    /* $consultores = [];
-                     for($i=0; $i <= count($array); $i++){
-                        //$array['items'][$key] = $rel['co_usuario']; 
-                        //$array[] = $rela->groupBy('co_usuario');
-                        //dd($i, count($array), $array);
-                        $consultores[$i] = $array[$i];
-                    }   */
-       // dd($array);
-                    
-        //dd($rela->groupBy('co_usuario'));
-        //$array[] = $rela->groupBy('co_usuario');
-       // dd($array);
-       $bandera = 0;
-       $arr_con = [];
-       $inc     = 0;
-
-        for($i=0; $i < $rela->count(); $i++){
-            //dd(  );
-            for($j=0; $j < count($rela[$i]); $j++){
-                dd($bandera != $rela[$i]['co_usuario'], $bandera, $rela[$i]['co_usuario']);
-                
-                if($bandera != $rela[$i]['co_usuario'] ){
-                    dd($bandera);
-                    $arr_con[$inc] = $rela[$i];
-                    $inc++;
-                    $bandera = $rela[$i]['co_usuario'];
-                }
-            }
-            
-            
-        }
       
-        dd($bandera, $inc, $arr_con);
+                    
+        $arrayConsultores[] = $rela->groupBy('no_usuario');
+        // dd($arrayConsultores);
+       /*  */
+                /*          foreach($arrayConsultores as $k => $consultor){
+                           
+                            foreach($consultor as $k => $consul){
+                                
+                                foreach($consul as $c){
+                                    dd(count($c['receita']));
+                                    dd($c['no_usuario']);
+                                }
+                             
+                            }
+                        }   */
 
-        return response()->json($rela);
+        return view('administrativo.index',compact('arrayConsultores'));
     }
 
     public function getGraficoConsultores(Request $request)

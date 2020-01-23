@@ -127,7 +127,7 @@ var agence = function () {
     var graficonsultor = function(arrayConsultores,start,end){
         $.ajax({
             dataType: "json",
-            url: $urlBase + "/getRelatorio",
+            url: $urlBase + "/getGraficoConsultores",
             data: {consultores: arrayConsultores, start : start, end:end},
             success: function(data) {
 
