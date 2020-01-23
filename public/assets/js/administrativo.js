@@ -123,6 +123,66 @@ var agence = function () {
 
     });
 
+    /**/
+    $(function($){
+        $('#chartConsultor').highcharts({
+        //  Highcharts.chart('container', {
+              title: {
+                  text: 'Combination chart'
+              },
+              xAxis: {
+                categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', '', '',]
+            },
+              
+              series: [{
+                  type: 'column',
+                  name: 'Jane',
+                  data: [3, 2, 1, 3, 4]
+              }, {
+                  type: 'column',
+                  name: 'John',
+                  data: [2, 3, 5, 7, 6]
+              }, {
+                  type: 'column',
+                  name: 'Joe',
+                  data: [4, 3, 3, 9, 0]
+              }, {
+                  type: 'spline',
+                  name: 'Average',
+                  data: [3, 2.67, 3, 6.33, 3.33],
+                  marker: {
+                      lineWidth: 2,
+                      lineColor: Highcharts.getOptions().colors[3],
+                      fillColor: 'white'
+                  }
+              }, {
+                  type: 'pie',
+                  name: 'Total consumption',
+                  data: [{
+                      name: 'Jane',
+                      y: 13,
+                      color: Highcharts.getOptions().colors[0] // Jane's color
+                  }, {
+                      name: 'John',
+                      y: 23,
+                      color: Highcharts.getOptions().colors[1] // John's color
+                  }, {
+                      name: 'Joe',
+                      y: 19,
+                      color: Highcharts.getOptions().colors[2] // Joe's color
+                  }],
+                  center: [100, 80],
+                  size: 100,
+                  showInLegend: false,
+                  dataLabels: {
+                      enabled: false
+                  }
+              }]
+         // });
+        })
+    });
+    /**/
+
     /*Gráfica*/
     var graficonsultor = function(arrayConsultores,start,end){
         $.ajax({
@@ -130,23 +190,23 @@ var agence = function () {
             url: $urlBase + "/getGraficoConsultores",
             data: {consultores: arrayConsultores, start : start, end:end},
             success: function(data) {
-
-        console.log(data);
-        am4core.ready(function() {
+         
+          
+     //   am4core.ready(function() {
         // Themes begin
-        am4core.useTheme(am4themes_animated);
+    /*     am4core.useTheme(am4themes_animated);
         // Create chart instance
         var chart = am4core.create("chartConsultor", am4charts.XYChart3D);
     
-        $.each(data, function( index, value ) {
+        $.each(data, function( index, value ){
             chart.data.push({
                 "consultor": value.no_usuario,
                 "receita": value.receita
             });
         });
-
+ */
         // Create axes
-var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+/* var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 categoryAxis.dataFields.category = "consultor";
 categoryAxis.renderer.grid.template.location = 0;
 categoryAxis.renderer.minGridDistance = 60;
@@ -205,50 +265,11 @@ paretoSeries.strokeOpacity = 0.5;
 // Cursor
 chart.cursor = new am4charts.XYCursor();
 chart.cursor.behavior = "panX";
-    
-   /*      // Create axes
-        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-            categoryAxis.dataFields.category = "consultor";
-            categoryAxis.renderer.labels.template.rotation = 300;
-            categoryAxis.renderer.labels.template.hideOversized = false;
-            categoryAxis.renderer.minGridDistance = 20;
-            categoryAxis.renderer.labels.template.horizontalCenter = "right";
-            categoryAxis.renderer.labels.template.verticalCenter = "middle";
-            categoryAxis.tooltip.label.rotation = 270;
-            categoryAxis.tooltip.label.horizontalCenter = "right";
-            categoryAxis.tooltip.label.verticalCenter = "middle";
-    
-        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-            valueAxis.title.text = "RECEITA LIQUIDA";
-            valueAxis.title.fontWeight = "bold";
-    
-        // Create series
-        var series = chart.series.push(new am4charts.ColumnSeries3D());
-            series.dataFields.valueY = "receita";
-            series.dataFields.categoryX = "consultor";
-            series.name = "receita";
-            series.tooltipText = "{categoryX}: [bold]{valueY}[/]";
-            series.columns.template.fillOpacity = .8;
-    
-        var columnTemplate = series.columns.template;
-            columnTemplate.strokeWidth = 2;
-            columnTemplate.strokeOpacity = 1;
-            columnTemplate.stroke = am4core.color("#FFFFFF");
-    
-            columnTemplate.adapter.add("fill", function(fill, target) {
-            return chart.colors.getIndex(target.dataItem.index);
-            })
-    
-            columnTemplate.adapter.add("stroke", function(stroke, target) {
-            return chart.colors.getIndex(target.dataItem.index);
-            })
-    
-            chart.cursor = new am4charts.XYCursor();
-            chart.cursor.lineX.strokeOpacity = 0;
-            chart.cursor.lineY.strokeOpacity = 0; */
+     */
+ 
     
     
-        }); // end am4core.ready()
+       // }); // end am4core.ready()
     
         } 
     });
