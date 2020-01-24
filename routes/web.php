@@ -20,14 +20,13 @@ Route::get('/', function () {
 Route::post('login', 'LoginController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', 'HomeController@index')->name('home');
-
-
-
 Route::get('/agence', 'AgenceController@index')->name('agence');
 Route::get('/administrativo', 'AdministrativoController@index')->name('administrativo');
-Route::get('/getGraficoConsultores/', 'AdministrativoController@getGraficoConsultores')->name('getGraficoConsultores');
 Route::get('/getConsultores/', 'AdministrativoController@getConsultores')->name('getConsultores');
+Route::get('/getGraficoConsultores/', 'AdministrativoController@getGraficoConsultores')->name('getGraficoConsultores');
+Route::get('/getPizzaConsultores/', 'AdministrativoController@getPizzaConsultores')->name('getPizzaConsultores');
 Route::post('/getRelatorio/', 'AdministrativoController@getRelatorio')->name('getRelatorio');
+
 
 Route::get('/comercial', 'ComercialController@index')->name('comercial');
 Route::get('/financeiro', 'FinanceiroController@index')->name('financeiro');

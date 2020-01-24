@@ -425,10 +425,7 @@ var formReset2 = function(form){
     //$('li > a[href="#tab1"]').tab("show");
 }
 
-$(document).on("change", "form select, form select", function(){
-    var formId = $('#' + this.id).closest('form').attr('id');
-    $("#" + formId).validate().element("#" + this.id);
-});
+
 
 var showAlert = function(title, message){
     bootbox.dialog({
@@ -446,65 +443,4 @@ var showAlert = function(title, message){
     });
 }
 
-/*var btPDFHtml5 = {
-    extend: 'pdfHtml5',
-    className: 'btn green btn-outline',
-    title: $appModule,
-    text: '',
-    exportOptions: {
-        columns: ':visible',
-        modifier: {
-            page: 'all'
-        }
-    },
-    //orientation: 'landscape',
-    //pageSize: 'LEGAL',
-    customize: function (doc) {
-        doc.defaultStyle.fontSize = 8;
-        doc.content.splice(1, {
-            margin: [0, 0, 0, 12],
-            alignment: 'center',
-        });
-        // Create a footer
-        doc['footer']=(function(page, pages) {
-            return {
-                columns: [
-                    {
-                        alignment: 'left',
-                        text: $today
-                    },
-                    {
-                        alignment: 'center',
-                        text: $appModule
-                    },
-                    {
-                        // This is the right column
-                        alignment: 'right',
-                        text: ['pagina ', { text: page.toString() },  ' de ', { text: pages.toString() }]
-                    }
-                ],
-                margin: [10, 0]
-            }
-        });
-    }
-};
 
-var btPrint = {
-    extend: 'print',
-    className: 'btn dark btn-outline',
-    exportOptions: {
-        columns: [ 1, 2, 3, 4, 5, 6, 7 ]
-    },
-    title : $appModule,
-    customize: function (win) {
-        $(win.document.body)
-            .css( 'font-size', '8pt !important' )
-            .prepend(
-                //'<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
-            );
-
-        $(win.document.body).find( 'table' )
-            .addClass( 'compact' )
-            .css( 'font-size', 'inherit' );
-    }
-}*/

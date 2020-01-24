@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Consultores</label>
+                                                    <label for="">Consultores</label>   -  <a id="selectAll" class="btn btn-default btn-xs"  ><small> Select All  </small></a>
                                                     <select type="select" id="consultores" name="consultores[]" class="form-control select_2"  multiple="multiple" style="width: 100%" >
                                                         
                                                     </select>
@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button class="btn btn-info" type="submit" class="relatorio"  id="" >
+                                                <button class="btn btn-info" type="submit" class="relatorio"  id="relatorio" >
                                                 <i style="color:#17C4BB" class="fa fa-money"></i>Relatorio</button>
                                             
                                                 <a class="btn btn-warning"  id="btGrafica" title="Gráfica de Barras">
@@ -82,27 +82,20 @@
                                                 <i style="color:#17C4BB" class="fa fa-pie-chart"></i>Pizza</a>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div id="chartConsultor" style="width: 100%; height: 400px; background-color: #FFFFFF;">
-
-                                            </div>
-                                            <div id="pizza" style="width: 100%; height: 400px; background-color: #FFFFFF;">
-
-                                            </div>
-                                        </div>
+                                        
                                     </form>
                                 </div> 
                             </div>         
                         </div>
                         <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover order-column active" id="dtTable" width="80%">
+                        <table class="table table-striped table-bordered table-hover order-column active" id="dtTable" width="80%">
                             @php $totalreceita = 0; $totalcomissao = 0; $totalcustofixo = 0; $total_lucro = 0; @endphp
-                        @foreach($arrayConsultores as $consultor)
-                            @foreach($consultor as $K => $consul)
-                        @php   $totalreceita = 0; $totalcomissao = 0;  $totalcustofixo = 0;  $total_lucro = 0;  @endphp
-                            <thead>
-                                <tr style="background-color:#019660;"><td  colspan="5">{{ $K }}</td></tr>
-                                    <tr>
+                            @foreach($arrayConsultores as $consultor)
+                                @foreach($consultor as $K => $consul)
+                            @php   $totalreceita = 0; $totalcomissao = 0;  $totalcustofixo = 0;  $total_lucro = 0;  @endphp
+                                <thead>
+                                    <tr style="background-color:#019660; color:#fff; font-weight:bold;font-size:18px"><td  colspan="5">{{ $K }}</td></tr>
+                                        <tr>
                                     <th>Período</th>
                                     <th>Receita Líquida</th>
                                     <th>Custo Fixo</th>
@@ -135,15 +128,14 @@
                                     </tr>
                                 </tbody>
                             @endforeach
-                        @endforeach
-                            
-                            </table> 
+                            @endforeach
+                        </table> 
                             <div id="pizza" style="width: 100%; height: 600px; background-color: #FFFFFF;" >
-                            
                             </div>
                             <div id="chartConsultor" style="width: 100%; height: 600px; background-color: #FFFFFF;" >
                                 
-                            </div>                                                                                     
+                            </div>
+                                                                                                                 
                         </div> 
                     </div>
                 </div>       
@@ -213,11 +205,11 @@
                                                         <i style="color:#17C4BB" class="fa fa-money"></i>Relatorio</a>
                                                         </li>
                                                         <li>
-                                                            <a  id="btGrafica" title="Gráfica de Barras">
+                                                            <a  id="btnGrafica" title="Gráfica de Barras">
                                                         <i style="color:#17C4BB" class="fa fa-bar-chart"></i>Gráfico</a>
                                                         </li>
                                                         <li>
-                                                            <a  id="btpizza" title="Gráfica Circular">
+                                                            <a  id="btnpizza" title="Gráfica Circular">
                                                             <i style="color:#17C4BB" class="fa fa-pie-chart"></i>Pizza</a>
                                                         </li>
                                                     </ul>
@@ -241,65 +233,7 @@
 @endsection
 
 @section('scripts')
-<!-- <script>
-  $(function($){
-        $('#chartConsultor').highcharts({
-        //  Highcharts.chart('container', {
-              title: {
-                  text: 'Combination chart'
-              },
-              xAxis: {
-                  categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
-              },
-              
-              series: [{
-                  type: 'column',
-                  name: 'Jane',
-                  data: [3, 2, 1, 3, 4]
-              }, {
-                  type: 'column',
-                  name: 'John',
-                  data: [2, 3, 5, 7, 6]
-              }, {
-                  type: 'column',
-                  name: 'Joe',
-                  data: [4, 3, 3, 9, 0]
-              }, {
-                  type: 'spline',
-                  name: 'Average',
-                  data: [3, 2.67, 3, 6.33, 3.33],
-                  marker: {
-                      lineWidth: 2,
-                      lineColor: Highcharts.getOptions().colors[3],
-                      fillColor: 'white'
-                  }
-              }, {
-                  type: 'pie',
-                  name: 'Total consumption',
-                  data: [{
-                      name: 'Jane',
-                      y: 13,
-                      color: Highcharts.getOptions().colors[0] // Jane's color
-                  }, {
-                      name: 'John',
-                      y: 23,
-                      color: Highcharts.getOptions().colors[1] // John's color
-                  }, {
-                      name: 'Joe',
-                      y: 19,
-                      color: Highcharts.getOptions().colors[2] // Joe's color
-                  }],
-                  center: [100, 80],
-                  size: 100,
-                  showInLegend: false,
-                  dataLabels: {
-                      enabled: false
-                  }
-              }]
-         // });
-        })
-    })
-</script> -->
+
 
 <script src="{{ asset('assets/js/administrativo.js') }}" type="text/javascript"></script>
 
